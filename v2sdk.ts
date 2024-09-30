@@ -115,11 +115,10 @@ export class V2SDK extends SDK {
         // error code 3000 meaning the jwt token is expired, need to re-init the client
         // only appear in connect method
         if (e.message.includes('3000')) {
+          console.log('jwt token is expired, re-initializing the sdk', e.message);
           await this.initSDK();
-          this.onAfterSessionCreated?.('');
-          console.log('jwt token is expired');
-        } else {
           listenerJwtError();
+          this.onAfterSessionCreated?.('');
         }
       });
     };
